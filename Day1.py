@@ -1,24 +1,22 @@
 from selenium import webdriver
 import unittest
-userID = "mngr153050"
-pwd = "UpErara"
+userID = "mngr156417"
+pwd = "ahubAqE"
+url = "http://www.demo.guru99.com/V4/"
+expect_title = "Guru99 Bank Manager HomePage"
 
-class test_Guru99Bank(unittest.TestCase):
-    def setUp(self):
-        self.driver = webdriver.Chrome()
-        self.driver.get("http://www.demo.guru99.com/V4/")
-    def test_VaildUserIDPWD(self):
-        uid = self.driver.find_element_by_name("uid")
-        uid.send_keys(userID)
-        password = self.driver.find_element_by_name("password")
-        password.send_keys(pwd)
-        self.driver.find_element_by_name("btnLogin").click()
+driver = webdriver.Chrome()
+driver.get(url)
 
-        managerid = self.driver.find_element_by_xpath("/html/body/table/tbody/tr/td/table/tbody/tr[3]/td").text
-        self.assertIn(userID,managerid)
+uid = driver.find_element_by_name("uid")
+uid.send_keys(userID)
+password = driver.find_element_by_name("password")
+password.send_keys(pwd)
+driver.find_element_by_name("btnLogin").click()
 
-    def tearDown(self):
-        self.driver.quit()
+if(expect_title == driver.title):
+    print("Test Case: PASS!!")
+else:
+    print("Test Case: FAIL!!")
 
-if __name__ == '__main__':
-    unittest.main()
+driver.quit()
